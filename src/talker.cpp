@@ -27,12 +27,21 @@
 // %Tag(FULLTEXT)%
 // %Tag(ROS_HEADER)%
 #include <sstream>
+#include <string>
 #include "ros/ros.h"
+#include "beginner_tutorials/modifyString.h"
 // %EndTag(ROS_HEADER)%
 // %Tag(MSG_HEADER)%
 #include "std_msgs/String.h"
 // %EndTag(MSG_HEADER)%
 
+bool changeString(beginner_tutorials::modifyString::Request &req,
+                  beginner_tutorials::modifyString::Response &res) {
+                    res.outputString = req.inputString + ", but better!";
+                    ROS_INFO("Input string: %s", (std::string)req.inputString);
+                    ROS_INFO("Response string: %s", (std::string)res.outputString);
+                    return true;
+                  }
 
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
@@ -61,6 +70,8 @@ int main(int argc, char **argv) {
   ros::NodeHandle n;
 // %EndTag(NODEHANDLE)%
 
+  ros::ServiceServer service = n.advertiseService("make_string_better",changeString);
+  ROS_INFO("Ready to improve string.");
   /**
    * The advertise() function is how you tell ROS that you want to
    * publish on a given topic name. This invokes a call to the ROS
