@@ -28,6 +28,7 @@
 // %Tag(ROS_HEADER)%
 #include <sstream>
 #include <string>
+#include <exception>
 #include "ros/ros.h"
 #include "beginner_tutorials/modifyString.h"
 // %EndTag(ROS_HEADER)%
@@ -37,12 +38,19 @@
 
 bool changeString(beginner_tutorials::modifyString::Request &req,
                   beginner_tutorials::modifyString::Response &res) {
-                    res.outputString = req.inputString + ", but better!";
-                    ROS_INFO("Input string: %s",
-                    (std::string)req.inputString);
-                    ROS_INFO("Response string: %s",
-                    (std::string)res.outputString);
-                    return true;
+                    try {
+                     ROS_INFO_STREAM("Service string: " << req.inputString);
+                     res.outputString = req.inputString + ", but better!";
+                     ROS_INFO("Input string: %s",
+                     (std::string)req.inputString);
+                     ROS_INFO("Response string: %s",
+                     (std::string)res.outputString);
+                     return true;
+                   }
+                   catch (std::exception& e) {
+                     ROS_ERROR_STREAM("Error in changeString");
+                     return false;
+                   }
                   }
 
 /**
@@ -121,6 +129,7 @@ int main(int argc, char **argv) {
 
 // %Tag(ROSCONSOLE)%
     ROS_INFO("%s", msg.data.c_str());
+    ROS_DEBUG_STREAM_THROTTLE(1,"Sending message #" <<count);
 // %EndTag(ROSCONSOLE)%
 
     /**
@@ -143,7 +152,7 @@ int main(int argc, char **argv) {
     ++count;
   }
 
-
+  ROS_FATAL_STREAM("Killing TALKER.CPP");
   return 0;
 }
 // %EndTag(FULLTEXT)%

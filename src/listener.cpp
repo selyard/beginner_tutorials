@@ -35,6 +35,7 @@
 // %Tag(CALLBACK)%
 void chatterCallback(const std_msgs::String::ConstPtr& msg) {
   ROS_INFO("I heard: [%s]", msg->data.c_str());
+  ROS_WARN_STREAM("Received stream!");
 }
 // %EndTag(CALLBACK)%
 
@@ -75,6 +76,7 @@ int main(int argc, char **argv) {
    */
 // %Tag(SUBSCRIBER)%
   ros::Subscriber sub = n.subscribe("chatter", 1000, chatterCallback);
+  ROS_WARN_THROTTLE(5,"Still listening...");
 // %EndTag(SUBSCRIBER)%
 
   /**
