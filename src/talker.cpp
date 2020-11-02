@@ -29,6 +29,7 @@
 #include <sstream>
 #include <string>
 #include <exception>
+#include <iostream>
 #include "ros/ros.h"
 #include "beginner_tutorials/modifyString.h"
 // %EndTag(ROS_HEADER)%
@@ -104,8 +105,19 @@ int main(int argc, char **argv) {
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 // %EndTag(PUBLISHER)%
 
+// get frequency parameter
+  ros::NodeHandle nh;
+  int desired_freq;
+  const std::string TALKER_FREQ_SET_NAME = "talker_freq_set";
+
+  if (nh.getParam(TALKER_FREQ_SET_NAME, desired_freq)) {
+    ROS_INFO("Got frequency: %i", desired_freq);
+  }  else {
+    ROS_WARN_STREAM("No frequency found, default to 10");
+    desired_freq = 10;
+  }
 // %Tag(LOOP_RATE)%
-  ros::Rate loop_rate(10);
+  ros::Rate loop_rate(desired_freq);
 // %EndTag(LOOP_RATE)%
 
   /**
@@ -113,6 +125,7 @@ int main(int argc, char **argv) {
    * a unique string for each message.
    */
 // %Tag(ROS_OK)%
+
   int count = 0;
   while (ros::ok())  {
 // %EndTag(ROS_OK)%
@@ -129,7 +142,7 @@ int main(int argc, char **argv) {
 
 // %Tag(ROSCONSOLE)%
     ROS_INFO("%s", msg.data.c_str());
-    ROS_DEBUG_STREAM_THROTTLE(1,"Sending message #" <<count);
+    ROS_DEBUG_STREAM_THROTTLE(1, "Sending message #" <<count);
 // %EndTag(ROSCONSOLE)%
 
     /**

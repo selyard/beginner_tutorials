@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
    */
 // %Tag(SUBSCRIBER)%
   ros::Subscriber sub = n.subscribe("chatter", 1000, chatterCallback);
-  ROS_WARN_THROTTLE(5,"Still listening...");
+  ROS_WARN_THROTTLE(5, "Still listening...");
 // %EndTag(SUBSCRIBER)%
 
   /**
