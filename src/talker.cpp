@@ -38,8 +38,10 @@
 bool changeString(beginner_tutorials::modifyString::Request &req,
                   beginner_tutorials::modifyString::Response &res) {
                     res.outputString = req.inputString + ", but better!";
-                    ROS_INFO("Input string: %s", (std::string)req.inputString);
-                    ROS_INFO("Response string: %s", (std::string)res.outputString);
+                    ROS_INFO("Input string: %s",
+                    (std::string)req.inputString);
+                    ROS_INFO("Response string: %s",
+                    (std::string)res.outputString);
                     return true;
                   }
 
@@ -70,7 +72,8 @@ int main(int argc, char **argv) {
   ros::NodeHandle n;
 // %EndTag(NODEHANDLE)%
 
-  ros::ServiceServer service = n.advertiseService("make_string_better",changeString);
+  ros::ServiceServer service = n.advertiseService("make_string_better",
+    changeString);
   ROS_INFO("Ready to improve string.");
   /**
    * The advertise() function is how you tell ROS that you want to
