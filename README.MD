@@ -1,6 +1,6 @@
 [MIT License]
 
-Instructions:
+Instructions to launch code:
 
 (0) Code generated using ROS Melodic
 
@@ -15,12 +15,20 @@ Instructions:
 (3a) Optional: Define a frequency of output messages using the argument freq:=(integer) ; defaults to 10 (hz).
 
 
+To call new service:
+
+(0) Launch code as noted above
+
+(1) In new console, type: rosservie call make_string_better <input string>
+
+(2) Console will output new string as part of an output string.
+
+
+
 
 CPPCheck output included in: "output_cppcheck.txt"
 
 CPPLint output included in: "output_cpplint.txt"
-
-
 
 To run CPPCheck and CPPLint:
 
