@@ -1,3 +1,27 @@
+/* @file talker.cpp
+ * @brief ROS Broadcaster with additional service which modifies a string
+ * provided by the user in the console when called.
+ *
+ * @copyright Copyright 2020, Spencer Elyard [MIT License]
+ *
+ *Permission is hereby granted, free of charge, to any person obtaining a
+ *copy of this software and associated documentation files (the "Software"),
+ *to deal in the Software without restriction, including without limitation
+ *the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *and/or sell copies of the Software, and to permit persons to whom the
+ *Software is furnished to do so, subject to the following conditions:
+ *
+ *The above copyright notice and this permission notice shall be included
+ *in all copies or substantial portions of the Software.
+ *THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ *THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ */
+
 /*
  * Copyright (C) 2008, Morgan Quigley and Willow Garage, Inc.
  *
@@ -37,6 +61,12 @@
 #include "std_msgs/String.h"
 // %EndTag(MSG_HEADER)%
 
+
+/* @brief Service which modifies a given string.
+* @param req Request
+* @param res Response
+*/
+
 bool changeString(beginner_tutorials::modifyString::Request &req,
                   beginner_tutorials::modifyString::Response &res) {
                     try {
@@ -54,8 +84,7 @@ bool changeString(beginner_tutorials::modifyString::Request &req,
                    }
                   }
 
-/**
- * This tutorial demonstrates simple sending of messages over the ROS system.
+/* @brief Tutorial demonstrating simple sending of messages over the ROS system.
  */
 int main(int argc, char **argv) {
   /**
@@ -81,6 +110,7 @@ int main(int argc, char **argv) {
   ros::NodeHandle n;
 // %EndTag(NODEHANDLE)%
 
+  // advertise service created above
   ros::ServiceServer service = n.advertiseService("make_string_better",
     changeString);
   ROS_INFO("Ready to improve string.");
@@ -109,7 +139,7 @@ int main(int argc, char **argv) {
   ros::NodeHandle nh;
   int desired_freq;
   const std::string TALKER_FREQ_SET_NAME = "talker_freq_set";
-
+  // set frequency or deefault+warn if not set
   if (nh.getParam(TALKER_FREQ_SET_NAME, desired_freq)) {
     ROS_INFO("Got frequency: %i", desired_freq);
   }  else {
