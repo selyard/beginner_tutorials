@@ -54,6 +54,7 @@
 #include <string>
 #include <exception>
 #include <iostream>
+#include <tf/transform_broadcaster.h>
 #include "ros/ros.h"
 #include "beginner_tutorials/modifyString.h"
 // %EndTag(ROS_HEADER)%
@@ -133,6 +134,7 @@ int main(int argc, char **argv) {
    */
 // %Tag(PUBLISHER)%
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+
 // %EndTag(PUBLISHER)%
 
 // get frequency parameter
@@ -155,6 +157,10 @@ int main(int argc, char **argv) {
    * a unique string for each message.
    */
 // %Tag(ROS_OK)%
+
+tf::TransformBroadcaster tf_br;
+tf::Transform transform;
+tf::Quaternion q;
 
   int count = 0;
   while (ros::ok())  {
@@ -184,6 +190,13 @@ int main(int argc, char **argv) {
 // %Tag(PUBLISH)%
     chatter_pub.publish(msg);
 // %EndTag(PUBLISH)%
+
+
+    tf::Vector3 vector = tf::Vector3((double) count,0.0,0.0);
+    q.setRPY(((double)count*(180/M_PI)),0.0,0.0);
+    transform.setOrigin(vector);
+    transform.setRotation(q);
+    tf_br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world","talk"));
 
 // %Tag(SPINONCE)%
     ros::spinOnce();
