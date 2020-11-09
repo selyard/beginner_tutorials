@@ -15,6 +15,14 @@ Instructions to launch code:
 (3a) Optional: Define a frequency of output messages using the argument freq:=(integer) ; defaults to 10 (hz).
 
 
+Instructions to test code:
+
+(1) Navigate to <catkin workspace> and run: catkin_make test
+
+(2) Run in this terminal: roslaunch beginner_tutorials test_talker_launch
+
+
+
 To call new service:
 
 (0) Launch code as noted above
