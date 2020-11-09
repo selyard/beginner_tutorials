@@ -1,0 +1,13 @@
+<launch>
+
+  <arg name="freq" default="10" />
+  <param name="talker_freq_set" type="int" value="$(arg freq)" />
+
+  <node pkg="beginner_tutorials" name="listen" type="listener" />
+
+  <node pkg="beginner_tutorials" name="talk" type="talker" 
+   output="screen" launch-prefix="gnome-terminal --command" />
+
+  <test pkg="beginner_tutorials" test-name="talk" type="talker_test" />
+
+</launch>

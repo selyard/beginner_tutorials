@@ -151,6 +151,15 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
+add_executable(talker src/talker.cpp)
+target_link_libraries(talker ${catkin_LIBRARIES})
+add_dependencies(talker beginner_tutorials_generate_messages_cpp ${simple_rostest_EXPORTED_TARGETS})
+
+add_executable(listener src/listener.cpp)
+target_link_libraries(listener ${catkin_LIBRARIES})
+add_dependencies(listener beginner_tutorials_generate_messages_cpp ${simple_rostest_EXPORTED_TARGETS})
+
+
 #############
 ## Install ##
 #############
@@ -206,12 +215,24 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-add_executable(talker src/talker.cpp)
-target_link_libraries(talker ${catkin_LIBRARIES})
-add_dependencies(talker beginner_tutorials_generate_messages_cpp)
+if(CATKIN_ENABLE_TESTING)
+  find_package(rostest REQUIRED)
 
-add_executable(listener src/listener.cpp)
-target_link_libraries(listener ${catkin_LIBRARIES})
-add_dependencies(listener beginner_tutorials_generate_messages_cpp)
+  add_rostest_gtest(
+  talker_test
+  test/test_talker_launch.launch
+  test/talker.cpp
+  )
+  target_link_libraries(
+  talker_test
+  ${catkin_LIBRARIES}
+  )
+  add_dependencies(
+  talker_test
+  talker
+  ${PROJECT_NAME}_generate_messages_cpp
+  ${catkin_EXPORTED_TARGETS}
+  )
+endif()
 
 
