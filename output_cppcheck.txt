@@ -1,6 +1,8 @@
 Checking src/listener.cpp ...
-1/2 files checked 40% done
+1/3 files checked 36% done
 Checking src/talker.cpp ...
-2/2 files checked 100% done
+2/3 files checked 92% done
+Checking test/talker.cpp ...
+3/3 files checked 100% done
 (information) Cppcheck cannot find all the include files (use --check-config for details)
 

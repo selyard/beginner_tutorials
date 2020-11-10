@@ -50,20 +50,19 @@
  */
 // %Tag(FULLTEXT)%
 // %Tag(ROS_HEADER)%
+
+#include <tf/transform_broadcaster.h>
+
 #include <sstream>
 #include <string>
 #include <exception>
 #include <iostream>
-#include <tf/transform_broadcaster.h>
+
 #include "ros/ros.h"
 #include "beginner_tutorials/modifyString.h"
-// %EndTag(ROS_HEADER)%
-// %Tag(MSG_HEADER)%
 #include "std_msgs/String.h"
-// %EndTag(MSG_HEADER)%
 
-
-/* @brief Service which modifies a given string.
+/** @brief Service which modifies a given string.
 * @param req Request
 * @param res Response
 */
@@ -192,11 +191,12 @@ tf::Quaternion q;
 // %EndTag(PUBLISH)%
 
 
-    tf::Vector3 vector = tf::Vector3((double) count,0.0,0.0);
-    q.setRPY(((double)count*(180/M_PI)),0.0,0.0);
+    tf::Vector3 vector = tf::Vector3(static_cast<double>(count), 0.0, 0.0);
+    q.setRPY((static_cast<double>(count)*(180/M_PI)), 0.0, 0.0);
     transform.setOrigin(vector);
     transform.setRotation(q);
-    tf_br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world","talk"));
+    tf_br.sendTransform(tf::StampedTransform(transform, ros::Time::now(),
+     "world", "talk"));
 
 // %Tag(SPINONCE)%
     ros::spinOnce();

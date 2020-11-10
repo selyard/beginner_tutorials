@@ -6,24 +6,24 @@
  * @copyright Copyright 2020, Spencer Elyard [MIT License]
  */
 
+#include <tf/transform_broadcaster.h>
+#include <ros/service_client.h>
+#include <gtest/gtest.h>
+
 #include <sstream>
 #include <string>
 #include <exception>
 #include <iostream>
-#include <tf/transform_broadcaster.h>
+
 #include "ros/ros.h"
-#include <ros/service_client.h>
 #include "beginner_tutorials/modifyString.h"
 #include "std_msgs/String.h"
 
-#include <gtest/gtest.h>
-#include "beginner_tutorials/modifyString.h"
-
 std::shared_ptr<ros::NodeHandle> nh;
 
-TEST(TESTSuite, talker)
-{
-  ros::ServiceClient client = nh->serviceClient<beginner_tutorials::modifyString>("make_string_better");
+TEST(TESTSuite, talker) {
+  ros::ServiceClient client = nh->serviceClient<beginner_tutorials::
+    modifyString>("make_string_better");
   bool exists(client.waitForExistence(ros::Duration(1)));
   EXPECT_TRUE(exists);
 
@@ -36,8 +36,8 @@ TEST(TESTSuite, talker)
 }
 
 int main(int argc, char **argv) {
-  ros::init(argc,argv,"test_talker");
+  ros::init(argc, argv, "test_talker");
   nh.reset(new ros::NodeHandle);
-  testing::InitGoogleTest(&argc,argv);
+  testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

@@ -2,5 +2,6 @@ Done processing ./src/listener.cpp
 ./src/talker.cpp:70:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::modifyString::Request &req  [runtime/references] [2]
 ./src/talker.cpp:71:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::modifyString::Response &res  [runtime/references] [2]
 Done processing ./src/talker.cpp
+Done processing ./test/talker.cpp
 Total errors found: 2
 
