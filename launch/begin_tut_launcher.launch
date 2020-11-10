@@ -1,11 +1,17 @@
 <launch>
 
   <arg name="freq" default="10" />
+  <arg name="rec" default="false" />
+
   <param name="talker_freq_set" type="int" value="$(arg freq)" />
 
   <node pkg="beginner_tutorials" name="listen" type="listener" />
 
   <node pkg="beginner_tutorials" name="talk" type="talker" 
    output="screen" launch-prefix="gnome-terminal --command" />
+
+  <node pkg="rosbag" type="record" name="rosbag_record"
+   args="--all --duration=15"
+   output="screen" if="$(arg rec)" />
 
 </launch>
